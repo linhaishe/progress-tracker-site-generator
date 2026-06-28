@@ -9,6 +9,18 @@ describe("parseArgs", () => {
       output: "docs/status.html",
       dryRun: true,
       force: true,
+      watch: false,
+    });
+  });
+
+  it("parses watch mode", () => {
+    expect(parseArgs(["init", "--watch", "--output", "docs/progress-tracker.html"])).toEqual({
+      command: "init",
+      root: ".",
+      output: "docs/progress-tracker.html",
+      dryRun: false,
+      force: false,
+      watch: true,
     });
   });
 

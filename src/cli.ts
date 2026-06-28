@@ -1,4 +1,5 @@
 import { runInit } from "./commands/init.js";
+import { startWatch } from "./commands/watch.js";
 
 export type ParsedArgs = {
   command: "init";
@@ -6,6 +7,7 @@ export type ParsedArgs = {
   output?: string;
   dryRun: boolean;
   force: boolean;
+  watch: boolean;
 };
 
 export function parseArgs(args: string[]): ParsedArgs {
@@ -13,7 +15,7 @@ export function parseArgs(args: string[]): ParsedArgs {
 
   if (!command || command === "--help" || command === "-h") {
     throw new Error(
-      "Usage: progress-tracker-site-generator init [--root .] [--output docs/progress-tracker.html] [--dry-run] [--force]",
+      "Usage: progress-tracker-site-generator init [--root .] [--output docs/progress-tracker.html] [--dry-run] [--force] [--watch]",
     );
   }
 
@@ -26,6 +28,7 @@ export function parseArgs(args: string[]): ParsedArgs {
     root: ".",
     dryRun: false,
     force: false,
+    watch: false,
   };
 
   for (let index = 0; index < rest.length; index += 1) {
@@ -40,9 +43,15 @@ export function parseArgs(args: string[]): ParsedArgs {
       parsed.dryRun = true;
     } else if (arg === "--force") {
       parsed.force = true;
+    } else if (arg === "--watch") {
+      parsed.watch = true;
     } else {
       throw new Error(`Unknown flag: ${arg}`);
     }
+  }
+
+  if (parsed.watch && parsed.dryRun) {
+    throw new Error("--watch cannot be combined with --dry-run");
   }
 
   return parsed;
@@ -50,6 +59,11 @@ export function parseArgs(args: string[]): ParsedArgs {
 
 export async function main(args: string[]) {
   const parsed = parseArgs(args);
+  if (parsed.watch) {
+    await startWatch(parsed);
+    return;
+  }
+
   const result = await runInit(parsed);
   console.log(result.output);
   process.exitCode = result.exitCode;
