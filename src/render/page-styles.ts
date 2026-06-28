@@ -23,7 +23,7 @@ body {
   line-height: 1.55;
 }
 button, textarea, input { font: inherit; }
-.shell { max-width: 1760px; margin: 0 auto; padding: 16px; }
+.shell { max-width: 1440px; margin: 0 auto; padding: 20px; }
 .panel {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -51,15 +51,23 @@ button, textarea, input { font: inherit; }
 .badge.primary { border-color: var(--primary); background: var(--primary); }
 .cockpit {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(280px, .85fr);
-  gap: 12px;
-  padding: 12px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-areas:
+    "focus focus focus focus focus focus focus focus milestone milestone milestone milestone"
+    "stack stack stack stack stack stack stack stack stack stack stack stack";
+  gap: 16px;
+  padding: 16px;
+  align-items: stretch;
 }
+.cockpit > * { min-width: 0; }
+.focus-card { grid-area: focus; }
+.milestone-card { grid-area: milestone; }
+.content-stack { display: grid; grid-area: stack; gap: 16px; min-width: 0; }
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 12px;
+  padding: 14px;
 }
 .label {
   color: var(--muted-text);
@@ -74,9 +82,10 @@ button, textarea, input { font: inherit; }
   border-left: 3px solid var(--primary);
   background: var(--muted-surface);
 }
-.signal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
-.section-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 12px 12px; }
-.list { margin: 8px 0 0; padding-left: 18px; }
+.card p { margin: 8px 0 0; }
+.section-grid { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 0 16px 16px; }
+.list { margin: 10px 0 0; padding-left: 18px; line-height: 1.6; }
+.list li + li { margin-top: 8px; }
 .empty { color: var(--muted-text); font-style: italic; }
 .milestone-bar { display: flex; gap: 4px; margin-top: 8px; }
 .milestone-segment { height: 8px; flex: 1; border-radius: 2px; background: var(--border); }
@@ -84,6 +93,10 @@ button, textarea, input { font: inherit; }
 .refresh-grid { display: grid; gap: 8px; margin-top: 8px; }
 .refresh-grid textarea { width: 100%; min-height: 92px; resize: vertical; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); padding: 8px; }
 .refresh-grid input { width: 100%; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); padding: 8px; }
+.refresh-card summary { cursor: pointer; list-style: none; }
+.refresh-card summary::-webkit-details-marker { display: none; }
+.refresh-card summary::after { content: "Show controls"; float: right; color: var(--muted-text); font-size: 12px; font-weight: 600; }
+.refresh-card[open] summary::after { content: "Hide controls"; }
 .button-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .button-row button { border: 1px solid var(--border); border-radius: 6px; background: var(--muted-surface); padding: 8px 12px; cursor: pointer; }
 .button-row button.primary { border-color: var(--primary); background: var(--primary); color: var(--text); font-weight: 700; }
@@ -91,7 +104,6 @@ button, textarea, input { font: inherit; }
   .header, .cockpit, .section-grid { display: block; }
   .badges { justify-content: flex-start; margin-top: 10px; }
   .card { margin-top: 10px; }
-  .signal-grid { grid-template-columns: 1fr; }
   .shell { padding: 10px; }
 }
 `;

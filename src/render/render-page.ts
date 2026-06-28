@@ -83,30 +83,26 @@ export function renderProgressPage(input: RenderProgressPageInput) {
         </div>
       </header>
       <div class="cockpit">
-        <div>
-          <article class="card">
-            <div class="label">Current Focus</div>
-            <h2 class="heading">${escapeHtml(currentPhase)}</h2>
-            <p data-live-current-goal>${escapeHtml(currentGoal)}</p>
-            <div class="accent" data-live-next-workflow>${escapeHtml(nextWorkflow)}</div>
-          </article>
-          <div class="signal-grid">
-            <article class="card"><div class="label">Next Up</div>${list(input.progress.sections.nextUp?.items)}</article>
-            <article class="card"><div class="label">Open Questions</div>${list(input.progress.sections.openQuestions?.items)}</article>
-            <article class="card"><div class="label">Verification</div>${list(input.progress.sections.verification?.items)}</article>
-          </div>
-        </div>
-        <aside>
-          <article class="card">
-            <div class="label">Milestones</div>
-            <div class="milestone-bar">${milestoneSegments(input.milestone.milestoneCounts.complete, input.milestone.milestoneCounts.total)}</div>
-            <p>${escapeHtml(milestoneSummary)}</p>
-            <p data-live-milestone-status>${escapeHtml(input.milestone.overallStatus.currentStage ?? "Current stage not recorded.")}</p>
-          </article>
+        <article class="card focus-card">
+          <div class="label">Current Focus</div>
+          <h2 class="heading">${escapeHtml(currentPhase)}</h2>
+          <p data-live-current-goal>${escapeHtml(currentGoal)}</p>
+          <div class="accent" data-live-next-workflow>${escapeHtml(nextWorkflow)}</div>
+        </article>
+        <article class="card milestone-card">
+          <div class="label">Milestones</div>
+          <div class="milestone-bar">${milestoneSegments(input.milestone.milestoneCounts.complete, input.milestone.milestoneCounts.total)}</div>
+          <p>${escapeHtml(milestoneSummary)}</p>
+          <p data-live-milestone-status>${escapeHtml(input.milestone.overallStatus.currentStage ?? "Current stage not recorded.")}</p>
+        </article>
+        <div class="content-stack">
+          <article class="card"><div class="label">Next Up</div>${list(input.progress.sections.nextUp?.items)}</article>
+          <article class="card"><div class="label">Open Questions</div>${list(input.progress.sections.openQuestions?.items)}</article>
           <article class="card"><div class="label">Risks / Blockers</div>${list([...(input.progress.sections.risks?.items ?? []), ...(input.milestone.sections.blockers?.items ?? [])])}</article>
+          <article class="card"><div class="label">Verification</div>${list(input.progress.sections.verification?.items)}</article>
           <article class="card"><div class="label">Assumptions</div>${list(input.progress.sections.assumptions?.items)}</article>
-          <article class="card">
-            <div class="label">Refresh Source</div>
+          <details class="card refresh-card">
+            <summary><span class="label">Refresh Source</span></summary>
             <div class="refresh-grid">
               <textarea id="progressMarkdownInput" aria-label="Paste progress tracker markdown">${escapeHtml(input.progressMarkdown ?? "")}</textarea>
               <textarea id="milestoneMarkdownInput" aria-label="Paste milestone tracker markdown">${escapeHtml(input.milestoneMarkdown ?? "")}</textarea>
@@ -117,8 +113,8 @@ export function renderProgressPage(input: RenderProgressPageInput) {
                 <button onclick="resetSnapshot()">Reset snapshot</button>
               </div>
             </div>
-          </article>
-        </aside>
+          </details>
+        </div>
       </div>
       <div class="section-grid">
         <article class="card"><div class="label">Completed</div>${list(input.progress.sections.completed?.items)}</article>

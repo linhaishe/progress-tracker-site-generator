@@ -12,7 +12,9 @@ export function parseArgs(args: string[]): ParsedArgs {
   const [command, ...rest] = args;
 
   if (!command || command === "--help" || command === "-h") {
-    throw new Error("Usage: progress-tracker-site init [--root .] [--output docs/progress-tracker.html] [--dry-run] [--force]");
+    throw new Error(
+      "Usage: progress-tracker-site-generator init [--root .] [--output docs/progress-tracker.html] [--dry-run] [--force]",
+    );
   }
 
   if (command !== "init") {

@@ -2,7 +2,7 @@
 
 Generate a read-only static progress dashboard from standard project tracker files.
 
-This package is published as `@linhaishe/progress-tracker-site`. It reads or creates:
+This package is published as `@linhaishe/progress-tracker-site-generator`. It reads or creates:
 
 - `context/progress-tracker.md`
 - `context/milestone-tracker.md`
@@ -11,8 +11,16 @@ Then it generates a self-contained HTML page that can be opened directly in a br
 
 ## Usage
 
+After the package is published to npm:
+
 ```bash
-npx @linhaishe/progress-tracker-site init
+npx @linhaishe/progress-tracker-site-generator init
+```
+
+Before npm publishing, install directly from GitHub:
+
+```bash
+npx github:linhaishe/progress-tracker-site-generator init
 ```
 
 By default, the command writes:
@@ -23,10 +31,10 @@ By default, the command writes:
 Useful options:
 
 ```bash
-npx @linhaishe/progress-tracker-site init --dry-run
-npx @linhaishe/progress-tracker-site init --force
-npx @linhaishe/progress-tracker-site init --root .
-npx @linhaishe/progress-tracker-site init --output docs/progress-tracker.html
+npx @linhaishe/progress-tracker-site-generator init --dry-run
+npx @linhaishe/progress-tracker-site-generator init --force
+npx @linhaishe/progress-tracker-site-generator init --root .
+npx @linhaishe/progress-tracker-site-generator init --output docs/progress-tracker.html
 ```
 
 ## Behavior

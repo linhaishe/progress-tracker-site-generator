@@ -1,11 +1,11 @@
 {
-  "name": "@linhaishe/progress-tracker-site",
+  "name": "@linhaishe/progress-tracker-site-generator",
   "version": "0.1.0",
   "description": "Install a read-only static project progress dashboard from context tracker markdown files.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "progress-tracker-site": "./bin/progress-tracker-site.js"
+    "progress-tracker-site-generator": "./bin/progress-tracker-site.js"
   },
   "files": [
     "bin/",
@@ -15,7 +15,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "vitest run",
-    "check": "npm run build && npm run test"
+    "check": "npm run build && npm run test",
+    "prepare": "npm run build"
   },
   "engines": {
     "node": ">=20"
