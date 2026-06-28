@@ -1,0 +1,77 @@
+<h2>Dashboard Layout: First Screen</h2>
+<p class="subtitle">Which structure should the generated page use to help the next agent understand project state fastest?</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">A. Handoff Cockpit</div>
+        <div class="mockup-body">
+          <div class="mock-nav">Project Progress | source files | generated time</div>
+          <div style="display:grid;grid-template-columns:1.4fr .9fr;gap:12px;margin-top:12px">
+            <div>
+              <div class="placeholder" style="height:80px">Current phase + current goal + next workflow</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+                <div class="placeholder">Next Up</div>
+                <div class="placeholder">Open Questions</div>
+                <div class="placeholder">Verification</div>
+              </div>
+            </div>
+            <div>
+              <div class="placeholder" style="height:54px">Milestone Status</div>
+              <div class="placeholder" style="height:54px;margin-top:8px">Risks / Blockers</div>
+              <div class="placeholder" style="height:54px;margin-top:8px">Assumptions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Recommended: Handoff Cockpit</h3>
+      <p>Prioritizes “what should I do next?” while keeping lifecycle/milestone state visible on the side. Best for AI/developer handoff.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">B. Milestone Timeline First</div>
+        <div class="mockup-body">
+          <div class="mock-nav">Project Progress | lifecycle overview</div>
+          <div class="placeholder" style="height:62px;margin-top:12px">Milestone timeline: kickoff -> spec -> plan -> implementation -> verification</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+            <div class="placeholder">Current milestone exit criteria</div>
+            <div class="placeholder">Progress handoff summary</div>
+          </div>
+          <div class="placeholder" style="height:60px;margin-top:12px">Details below</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Milestone Timeline First</h3>
+      <p>Good when management/lifecycle visibility matters most. Slightly slower for an agent who needs immediate next actions.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">C. Source Notebook</div>
+        <div class="mockup-body">
+          <div class="mock-nav">Project Progress | tracker files</div>
+          <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;margin-top:12px">
+            <div class="mock-sidebar">progress-tracker.md<br>milestone-tracker.md<br>design.md<br>raw source</div>
+            <div>
+              <div class="placeholder" style="height:70px">Selected section</div>
+              <div class="placeholder" style="height:100px;margin-top:8px">Parsed markdown content</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Source Notebook</h3>
+      <p>Best for inspecting source documents. More document-browser than dashboard, so the “current state” signal is weaker.</p>
+    </div>
+  </div>
+</div>

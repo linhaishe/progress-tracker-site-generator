@@ -1,0 +1,68 @@
+<h2>V1 Direction: Generator + Static Dashboard</h2>
+<p class="subtitle">Pick the behavior level you want for the generated HTML page. All options use `context/progress-tracker.md`, `context/milestone-tracker.md`, and `context/design.md` as inputs.</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">A. Snapshot Page</div>
+        <div class="mockup-body">
+          <div class="mock-nav">Project Progress | Generated once</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+            <div class="placeholder">Current Goal</div>
+            <div class="placeholder">Milestone Status</div>
+          </div>
+          <div class="placeholder" style="margin-top:12px;height:110px">Read-only sections rendered at generation time</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Simple Snapshot</h3>
+      <p>CLI reads markdown and writes a self-contained HTML snapshot. Lowest risk and easiest to publish, but users rerun the CLI whenever tracker files change.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">B. Snapshot + Paste/Load Refresh</div>
+        <div class="mockup-body">
+          <div class="mock-nav">Project Progress | Static + refresh controls</div>
+          <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-top:12px">
+            <div class="placeholder">Handoff cockpit from embedded snapshot</div>
+            <div class="placeholder">Paste updated markdown</div>
+          </div>
+          <div class="placeholder" style="margin-top:12px;height:90px">Milestones, blockers, next workflow</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Recommended: Static Dashboard with Manual Refresh</h3>
+      <p>Generates a polished embedded snapshot, plus client-side controls to paste or load updated tracker markdown. Still no server, no build, no writes.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">C. Local Reader Tool</div>
+        <div class="mockup-body">
+          <div class="mock-nav">Project Progress | Browser app mode</div>
+          <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;margin-top:12px">
+            <div class="mock-sidebar">Sections<br>Filters<br>Source inputs</div>
+            <div class="placeholder">Interactive parsing, tabs, raw source view, richer controls</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Interactive Local Reader</h3>
+      <p>More app-like static HTML with tabs, filters, raw markdown panes, and richer controls. Useful, but bigger v1 surface and more test burden.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>My recommendation</h3>
+  <p>Choose B. It keeps the package honest as a static generator while making the page useful after `progress-tracker.md` changes, without inventing a server or syncing model.</p>
+</div>
