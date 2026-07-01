@@ -1,5 +1,6 @@
 {
-  "name": "@linhaishe/progress-tracker-site-generator",
+  "name": "@freeasaka/progress-tracker-site-generator",
+  "author": "linhaishe",
   "version": "0.1.0",
   "description": "Install a read-only static project progress dashboard from context tracker markdown files.",
   "license": "MIT",
