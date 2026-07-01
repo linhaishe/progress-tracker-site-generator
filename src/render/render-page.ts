@@ -1,6 +1,5 @@
 import { GENERATED_MARKER } from "../core/ownership.js";
 import type { ParsedProgressTracker } from "../trackers/parse-progress-tracker.js";
-import { pageScript } from "./page-script.js";
 import { pageStyles } from "./page-styles.js";
 
 export type RenderProgressPageInput = {
@@ -53,10 +52,6 @@ export function renderProgressPage(input: RenderProgressPageInput) {
     total: milestones.length,
   };
   const milestoneSummary = `${milestoneCounts.complete} complete / ${milestoneCounts.total} total`;
-  const snapshot = JSON.stringify({
-    progressMarkdown: input.progressMarkdown ?? "",
-  }).replaceAll("<", "\\u003c");
-
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -73,10 +68,6 @@ export function renderProgressPage(input: RenderProgressPageInput) {
         <div>
           <h1 class="title">Project Progress</h1>
           <div class="meta">Generated ${escapeHtml(input.generatedAt)} from ${escapeHtml(input.sourcePaths.progress)}</div>
-        </div>
-        <div class="badges">
-          <span class="badge">Read-only</span>
-          <span class="badge primary">Manual refresh</span>
         </div>
       </header>
       <div class="cockpit">
@@ -98,17 +89,6 @@ export function renderProgressPage(input: RenderProgressPageInput) {
           <article class="card"><div class="label">Risks / Blockers</div>${list(input.progress.sections.risks?.items)}</article>
           <article class="card"><div class="label">Verification</div>${list(input.progress.sections.verification?.items)}</article>
           <article class="card"><div class="label">Assumptions</div>${list(input.progress.sections.assumptions?.items)}</article>
-          <details class="card refresh-card">
-            <summary><span class="label">Refresh Source</span></summary>
-            <div class="refresh-grid">
-              <textarea id="progressMarkdownInput" aria-label="Paste progress tracker markdown">${escapeHtml(input.progressMarkdown ?? "")}</textarea>
-              <input type="file" accept=".md,text/markdown,text/plain" onchange="loadFileInto('progressMarkdownInput', this)" aria-label="Load progress tracker markdown">
-              <div class="button-row">
-                <button class="primary" onclick="applyPastedMarkdown()">Apply pasted markdown</button>
-                <button onclick="resetSnapshot()">Reset snapshot</button>
-              </div>
-            </div>
-          </details>
         </div>
       </div>
       <div class="section-grid">
@@ -119,8 +99,6 @@ export function renderProgressPage(input: RenderProgressPageInput) {
       </div>
     </section>
   </main>
-  <script>window.__PROGRESS_TRACKER_SNAPSHOT__ = ${snapshot};</script>
-  <script>${pageScript}</script>
 </body>
 </html>`;
 }

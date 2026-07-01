@@ -55,7 +55,8 @@ describe("runInit", () => {
     expect(progressMarkdown).not.toContain("This should not be imported.");
 
     const html = await readFile(join(root, "docs", "progress-tracker.html"), "utf8");
-    expect(html).toContain("Build a fast checkout flow.");
+    expect(html).toContain("Project Progress");
+    expect(html).not.toContain("Build a fast checkout flow.");
   });
 
   it("uses AI-generated progress tracker content when AI mode is enabled", async () => {

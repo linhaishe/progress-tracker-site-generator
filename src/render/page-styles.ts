@@ -38,17 +38,6 @@ button, textarea, input { font: inherit; }
 }
 .title { margin: 0; color: var(--text); font-size: 24px; line-height: 32px; }
 .meta { color: var(--muted-text); font-size: 12px; margin-top: 4px; }
-.badges { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
-.badge {
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--muted-surface);
-  color: var(--text);
-  padding: 4px 8px;
-  font-size: 12px;
-  font-weight: 700;
-}
-.badge.primary { border-color: var(--primary); background: var(--primary); }
 .cockpit {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -90,19 +79,8 @@ button, textarea, input { font: inherit; }
 .milestone-bar { display: flex; gap: 4px; margin-top: 8px; }
 .milestone-segment { height: 8px; flex: 1; border-radius: 2px; background: var(--border); }
 .milestone-segment.done { background: var(--success); }
-.refresh-grid { display: grid; gap: 8px; margin-top: 8px; }
-.refresh-grid textarea { width: 100%; min-height: 92px; resize: vertical; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); padding: 8px; }
-.refresh-grid input { width: 100%; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); padding: 8px; }
-.refresh-card summary { cursor: pointer; list-style: none; }
-.refresh-card summary::-webkit-details-marker { display: none; }
-.refresh-card summary::after { content: "Show controls"; float: right; color: var(--muted-text); font-size: 12px; font-weight: 600; }
-.refresh-card[open] summary::after { content: "Hide controls"; }
-.button-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.button-row button { border: 1px solid var(--border); border-radius: 6px; background: var(--muted-surface); padding: 8px 12px; cursor: pointer; }
-.button-row button.primary { border-color: var(--primary); background: var(--primary); color: var(--text); font-weight: 700; }
 @media (max-width: 900px) {
   .header, .cockpit, .section-grid { display: block; }
-  .badges { justify-content: flex-start; margin-top: 10px; }
   .card { margin-top: 10px; }
   .shell { padding: 10px; }
 }

@@ -4,7 +4,7 @@ import { renderProgressPage } from "../../src/render/render-page.js";
 import { parseProgressTracker } from "../../src/trackers/parse-progress-tracker.js";
 
 describe("renderProgressPage", () => {
-  it("renders generated marker, cockpit content, and manual refresh controls", () => {
+  it("renders generated marker, cockpit content, and milestone progress", () => {
     const html = renderProgressPage({
       generatedAt: "2026-06-28T00:00:00.000Z",
       sourcePaths: {
@@ -40,8 +40,10 @@ describe("renderProgressPage", () => {
     expect(html).toContain("Project Progress");
     expect(html).toContain("Implementation Planning");
     expect(html).toContain("Build the generator.");
-    expect(html).toContain("Manual refresh");
-    expect(html).toContain("progressMarkdownInput");
     expect(html).toContain("1 complete / 2 total");
+    expect(html).not.toContain("Manual refresh");
+    expect(html).not.toContain("Read-only");
+    expect(html).not.toContain("Refresh Source");
+    expect(html).not.toContain("progressMarkdownInput");
   });
 });

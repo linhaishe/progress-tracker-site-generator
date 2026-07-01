@@ -58,4 +58,5 @@ The generated progress tracker page should feel like a dense operational dashboa
 - Amber should orient the reader, not dominate the page.
 - Warnings, blockers, and verification gaps should be visually serious and easy to find.
 - Missing or empty tracker sections should appear as quiet notices rather than disappearing.
-- Manual refresh controls should feel secondary to the dashboard content.
+- The generated HTML should behave as a static snapshot of `context/progress-tracker.md`; regeneration happens through the CLI.
+- Milestones should show stage-level completion from the tracker checklist, not small implementation tasks.
