@@ -15,12 +15,16 @@ After the package is published to npm:
 
 ```bash
 npx @linhaishe/progress-tracker-site-generator init
+# or
+pnpm dlx @linhaishe/progress-tracker-site-generator init
 ```
 
 Before npm publishing, install directly from GitHub:
 
 ```bash
 npx github:linhaishe/progress-tracker-site-generator init
+# or
+pnpm dlx github:linhaishe/progress-tracker-site-generator init
 ```
 
 By default, the command writes:
@@ -36,6 +40,12 @@ npx @linhaishe/progress-tracker-site-generator init --force
 npx @linhaishe/progress-tracker-site-generator init --root .
 npx @linhaishe/progress-tracker-site-generator init --output docs/progress-tracker.html
 npx @linhaishe/progress-tracker-site-generator init --watch --output docs/progress-tracker.html
+```
+
+With pnpm, replace `npx` with `pnpm dlx`:
+
+```bash
+pnpm dlx @linhaishe/progress-tracker-site-generator init --watch --output docs/progress-tracker.html
 ```
 
 `--watch` runs an initial generation, then keeps the process open and regenerates the HTML whenever these files change:
@@ -61,4 +71,13 @@ npm install
 npm run build
 npm run test
 npm run check
+```
+
+pnpm works too:
+
+```bash
+pnpm install
+pnpm run build
+pnpm run test
+pnpm run check
 ```

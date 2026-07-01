@@ -15,8 +15,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "vitest run",
-    "check": "npm run build && npm run test",
-    "prepare": "npm run build"
+    "check": "tsc -p tsconfig.json && vitest run",
+    "prepare": "tsc -p tsconfig.json"
   },
   "engines": {
     "node": ">=20"
