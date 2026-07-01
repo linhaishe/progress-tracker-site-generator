@@ -59,6 +59,7 @@ export async function startWatch(options: RunInitOptions, dependencies: StartWat
         output: options.output,
         dryRun: false,
         force: true,
+        ai: options.ai,
       });
       logger.log(`[${timestamp()}] ${reason}\n${result.output}`);
     } catch (error) {

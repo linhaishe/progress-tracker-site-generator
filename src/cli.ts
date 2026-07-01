@@ -8,6 +8,7 @@ export type ParsedArgs = {
   dryRun: boolean;
   force: boolean;
   watch: boolean;
+  ai: boolean;
 };
 
 export function parseArgs(args: string[]): ParsedArgs {
@@ -15,7 +16,7 @@ export function parseArgs(args: string[]): ParsedArgs {
 
   if (!command || command === "--help" || command === "-h") {
     throw new Error(
-      "Usage: progress-tracker-site-generator init [--root .] [--output docs/progress-tracker.html] [--dry-run] [--force] [--watch]",
+      "Usage: progress-tracker-site-generator init [--root .] [--output docs/progress-tracker.html] [--dry-run] [--force] [--watch] [--ai]",
     );
   }
 
@@ -29,6 +30,7 @@ export function parseArgs(args: string[]): ParsedArgs {
     dryRun: false,
     force: false,
     watch: false,
+    ai: false,
   };
 
   for (let index = 0; index < rest.length; index += 1) {
@@ -45,6 +47,8 @@ export function parseArgs(args: string[]): ParsedArgs {
       parsed.force = true;
     } else if (arg === "--watch") {
       parsed.watch = true;
+    } else if (arg === "--ai") {
+      parsed.ai = true;
     } else {
       throw new Error(`Unknown flag: ${arg}`);
     }

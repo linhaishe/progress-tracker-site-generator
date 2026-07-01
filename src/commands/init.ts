@@ -1,6 +1,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, relative, resolve } from "node:path";
 import { createInstallPlan, type FileAction } from "../core/file-plan.js";
+import { generateProgressTrackerFromDocs, type GenerateProgressTrackerInput } from "../docs/ai-progress-tracker.js";
+import { appendProjectDocsContext, readPackagedReferenceDocs, readRelevantProjectDocs } from "../docs/project-docs.js";
 import { resolveOutputPath } from "../core/output-path.js";
 import { renderProgressPage } from "../render/render-page.js";
 import { parseMilestoneTracker } from "../trackers/parse-milestone-tracker.js";
@@ -12,11 +14,16 @@ export type RunInitOptions = {
   output?: string;
   dryRun: boolean;
   force: boolean;
+  ai?: boolean;
 };
 
 export type RunInitResult = {
   exitCode: number;
   output: string;
+};
+
+export type RunInitDependencies = {
+  generateProgressTrackerFromDocs?: (input: GenerateProgressTrackerInput) => Promise<string>;
 };
 
 function group(actions: FileAction[], kind: FileAction["kind"]) {
@@ -28,7 +35,14 @@ function linesFor(title: string, actions: FileAction[]) {
   return [`${title}:`, ...actions.map((action) => `- ${action.relativePath}`)];
 }
 
-function formatReport(planActions: FileAction[], outputPath: string, root: string, dryRun: boolean, hasConflicts: boolean) {
+function formatReport(
+  planActions: FileAction[],
+  outputPath: string,
+  root: string,
+  dryRun: boolean,
+  hasConflicts: boolean,
+  notes: string[],
+) {
   const lines = [
     dryRun ? "Dry run only." : hasConflicts ? "Progress tracker site has conflicts." : "Progress tracker site installed.",
     "",
@@ -36,6 +50,15 @@ function formatReport(planActions: FileAction[], outputPath: string, root: strin
     ...linesFor("Overwritten", group(planActions, "overwrite")),
     ...linesFor("Existing", group(planActions, "preserve")),
     ...linesFor("Conflicts", group(planActions, "conflict")),
+    ...linesFor(
+      "Notes",
+      notes.map((note) => ({
+        kind: "preserve" as const,
+        path: "",
+        relativePath: note,
+        reason: note,
+      })),
+    ),
     "",
     `Open: ${relative(root, outputPath)}`,
   ];
@@ -43,10 +66,11 @@ function formatReport(planActions: FileAction[], outputPath: string, root: strin
   return lines.filter((line, index, all) => line !== "" || all[index - 1] !== "").join("\n").trimEnd();
 }
 
-export async function runInit(options: RunInitOptions): Promise<RunInitResult> {
+export async function runInit(options: RunInitOptions, dependencies: RunInitDependencies = {}): Promise<RunInitResult> {
   const root = resolve(options.root);
   const outputPath = await resolveOutputPath({ root, output: options.output });
   const plan = await createInstallPlan({ root, outputPath, force: options.force });
+  const notes: string[] = [];
 
   if (!options.dryRun && !plan.hasConflicts) {
     await mkdir(resolve(root, "context"), { recursive: true });
@@ -56,7 +80,26 @@ export async function runInit(options: RunInitOptions): Promise<RunInitResult> {
     const milestoneAction = plan.actions.find((action) => action.relativePath === "context/milestone-tracker.md");
 
     if (progressAction?.kind === "create") {
-      await writeFile(progressAction.path, await readProgressSkeleton(), "utf8");
+      const projectDocs = await readRelevantProjectDocs(root);
+      const progressSkeleton = await readProgressSkeleton();
+      let progressMarkdown = appendProjectDocsContext(progressSkeleton, projectDocs);
+
+      if (options.ai && projectDocs.length > 0) {
+        try {
+          const generator = dependencies.generateProgressTrackerFromDocs ?? generateProgressTrackerFromDocs;
+          progressMarkdown = await generator({
+            projectDocs,
+            referenceDocs: await readPackagedReferenceDocs(),
+            progressSkeleton,
+          });
+          notes.push("AI generated context/progress-tracker.md from docs.");
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          notes.push(`AI skipped: ${message}`);
+        }
+      }
+
+      await writeFile(progressAction.path, progressMarkdown, "utf8");
     }
     if (milestoneAction?.kind === "create") {
       await writeFile(milestoneAction.path, await readMilestoneSkeleton(), "utf8");
@@ -87,6 +130,6 @@ export async function runInit(options: RunInitOptions): Promise<RunInitResult> {
 
   return {
     exitCode: plan.hasConflicts ? 1 : 0,
-    output: formatReport(plan.actions, outputPath, root, options.dryRun, plan.hasConflicts),
+    output: formatReport(plan.actions, outputPath, root, options.dryRun, plan.hasConflicts, notes),
   };
 }

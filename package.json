@@ -1,7 +1,7 @@
 {
   "name": "@freeasaka/progress-tracker-site-generator",
   "author": "linhaishe",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Install a read-only static project progress dashboard from context tracker markdown files.",
   "license": "MIT",
   "type": "module",
@@ -26,5 +26,8 @@
     "@types/node": "^20.19.0",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "undici": "^6.27.0"
   }
 }

@@ -10,6 +10,7 @@ describe("parseArgs", () => {
       dryRun: true,
       force: true,
       watch: false,
+      ai: false,
     });
   });
 
@@ -21,6 +22,18 @@ describe("parseArgs", () => {
       dryRun: false,
       force: false,
       watch: true,
+      ai: false,
+    });
+  });
+
+  it("parses AI mode", () => {
+    expect(parseArgs(["init", "--ai", "--root", "demo"])).toEqual({
+      command: "init",
+      root: "demo",
+      dryRun: false,
+      force: false,
+      watch: false,
+      ai: true,
     });
   });
 
