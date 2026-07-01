@@ -4,8 +4,8 @@ import { shouldRegenerateForWatchEvent, startWatch } from "../../src/commands/wa
 describe("shouldRegenerateForWatchEvent", () => {
   it("only reacts to tracker and design markdown files", () => {
     expect(shouldRegenerateForWatchEvent("progress-tracker.md")).toBe(true);
-    expect(shouldRegenerateForWatchEvent("milestone-tracker.md")).toBe(true);
     expect(shouldRegenerateForWatchEvent("design.md")).toBe(true);
+    expect(shouldRegenerateForWatchEvent("milestone-tracker.md")).toBe(false);
     expect(shouldRegenerateForWatchEvent("notes.md")).toBe(false);
     expect(shouldRegenerateForWatchEvent(null)).toBe(false);
   });
@@ -35,6 +35,7 @@ describe("startWatch", () => {
       output: "docs/progress-tracker.html",
       dryRun: false,
       force: true,
+      ai: undefined,
     });
 
     listener("change", "progress-tracker.md");

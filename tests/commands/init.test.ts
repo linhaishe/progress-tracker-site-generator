@@ -27,7 +27,7 @@ describe("runInit", () => {
     expect(result.exitCode).toBe(0);
     expect(result.output).toContain("Progress tracker site installed.");
     expect(await readFile(join(root, "context", "progress-tracker.md"), "utf8")).toContain("# Progress Tracker");
-    expect(await readFile(join(root, "context", "milestone-tracker.md"), "utf8")).toContain("# Milestone Tracker");
+    await expect(readFile(join(root, "context", "milestone-tracker.md"), "utf8")).rejects.toThrow();
     expect(await readFile(join(root, "docs", "progress-tracker.html"), "utf8")).toContain("Project Progress");
   });
 

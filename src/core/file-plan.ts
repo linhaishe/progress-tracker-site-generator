@@ -42,18 +42,15 @@ export async function createInstallPlan(options: CreateInstallPlanOptions): Prom
   const root = resolve(options.root);
   const outputPath = resolve(options.outputPath);
   const progressPath = resolve(root, "context/progress-tracker.md");
-  const milestonePath = resolve(root, "context/milestone-tracker.md");
   const actions: FileAction[] = [];
 
-  for (const trackerPath of [progressPath, milestonePath]) {
-    const exists = await fileExists(trackerPath);
-    actions.push({
-      kind: exists ? "preserve" : "create",
-      path: trackerPath,
-      relativePath: toRelative(root, trackerPath),
-      reason: exists ? "Existing tracker markdown is preserved." : "Tracker markdown is missing and will be created.",
-    });
-  }
+  const progressExists = await fileExists(progressPath);
+  actions.push({
+    kind: progressExists ? "preserve" : "create",
+    path: progressPath,
+    relativePath: toRelative(root, progressPath),
+    reason: progressExists ? "Existing progress tracker markdown is preserved." : "Progress tracker markdown is missing and will be created.",
+  });
 
   if (!(await fileExists(outputPath))) {
     actions.push({

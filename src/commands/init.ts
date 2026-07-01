@@ -5,9 +5,8 @@ import { generateProgressTrackerFromDocs, type GenerateProgressTrackerInput } fr
 import { appendProjectDocsContext, readPackagedReferenceDocs, readRelevantProjectDocs } from "../docs/project-docs.js";
 import { resolveOutputPath } from "../core/output-path.js";
 import { renderProgressPage } from "../render/render-page.js";
-import { parseMilestoneTracker } from "../trackers/parse-milestone-tracker.js";
 import { parseProgressTracker } from "../trackers/parse-progress-tracker.js";
-import { readMilestoneSkeleton, readProgressSkeleton } from "../trackers/skeletons.js";
+import { readProgressSkeleton } from "../trackers/skeletons.js";
 
 export type RunInitOptions = {
   root: string;
@@ -77,7 +76,6 @@ export async function runInit(options: RunInitOptions, dependencies: RunInitDepe
     await mkdir(dirname(outputPath), { recursive: true });
 
     const progressAction = plan.actions.find((action) => action.relativePath === "context/progress-tracker.md");
-    const milestoneAction = plan.actions.find((action) => action.relativePath === "context/milestone-tracker.md");
 
     if (progressAction?.kind === "create") {
       const projectDocs = await readRelevantProjectDocs(root);
@@ -101,12 +99,8 @@ export async function runInit(options: RunInitOptions, dependencies: RunInitDepe
 
       await writeFile(progressAction.path, progressMarkdown, "utf8");
     }
-    if (milestoneAction?.kind === "create") {
-      await writeFile(milestoneAction.path, await readMilestoneSkeleton(), "utf8");
-    }
 
     const progressMarkdown = await readFile(resolve(root, "context/progress-tracker.md"), "utf8");
-    const milestoneMarkdown = await readFile(resolve(root, "context/milestone-tracker.md"), "utf8");
     const htmlAction = plan.actions.find((action) => action.path === outputPath);
 
     if (htmlAction?.kind === "create" || htmlAction?.kind === "overwrite") {
@@ -116,12 +110,9 @@ export async function runInit(options: RunInitOptions, dependencies: RunInitDepe
           generatedAt: new Date().toISOString(),
           sourcePaths: {
             progress: "context/progress-tracker.md",
-            milestone: "context/milestone-tracker.md",
           },
           progressMarkdown,
-          milestoneMarkdown,
           progress: parseProgressTracker(progressMarkdown),
-          milestone: parseMilestoneTracker(milestoneMarkdown),
         }),
         "utf8",
       );

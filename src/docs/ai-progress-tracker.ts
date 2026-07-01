@@ -133,6 +133,10 @@ function trackerPrompt(input: GenerateProgressTrackerInput) {
 
 Use the target project docs as the factual source. Use packaged reference docs only for style, stage vocabulary, and expectations. Synthesize the current phase, goal, next workflow, next steps, risks, assumptions, architecture decisions, session notes, and verification notes. Do not paste full source documents into the tracker.
 
+Keep the markdown human-readable, but preserve stable machine-readable section names and labels from the skeleton. In particular, keep Project Health, Active Slice, Exit Criteria, Next Up, Next Slices, Source Map, and Verification. Use stable labels such as Delivery Confidence, Scope Stability, Technical Risk, Blocker Status, Name, Status, Owner, Source, Started, Target, Last Run, Result, Checked At, and Coverage.
+
+Track delivery slices and exit criteria, not tiny implementation TODOs. Completed should contain only recent key delivery slices. Open Questions and Risks must stay separate. Source Map should point to source documents instead of copying their content.
+
 Progress tracker skeleton:
 ${input.progressSkeleton}
 

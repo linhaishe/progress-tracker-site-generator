@@ -1,46 +1,97 @@
 # Progress Tracker
 
+## Project Health
+
+- Delivery Confidence: Medium
+- Scope Stability: Medium
+- Technical Risk: Medium
+- Blocker Status: Clear
+- Last Updated: [YYYY-MM-DD]
+
 ## Current Phase
 
 - Project Kickoff
 
+## Active Slice
+
+- Name: Select the next implementation slice
+- Status: Planned
+- Owner: [person/agent/team]
+- Source: [PRD / issue / plan path]
+- Started: [YYYY-MM-DD]
+- Target: Not set
+
+## Exit Criteria
+
+- [ ] Immediate implementation slice is confirmed.
+- [ ] Implementation plan is written or linked.
+- [ ] Verification expectations are clear.
+
 ## Current Goal
 
-- Establish the project context and select the next implementation slice.
+- Establish project context and make the next implementation slice ready for execution.
 
 ## Recommended Next Workflow
 
-- Review tracker files, confirm scope, then write an implementation plan.
+- Review source documents, confirm the active slice, then write or update the implementation plan.
 
 ## Next Up
 
-- [ ] Confirm the immediate implementation slice.
-- [ ] Write an implementation plan.
-- [ ] Run verification after implementation.
+- [ ] Confirm the active slice.
+- [ ] Link source documents in Source Map.
+- [ ] Define verification expectations.
+
+## Next Slices
+
+- [ ] First implementation slice
+- [ ] Verification and review slice
+- [ ] Release preparation slice
+
+## Milestones
+
+- [ ] Project Kickoff
+- [ ] Feature Specification
+- [ ] Implementation Planning
+- [ ] Initial Implementation
+- [ ] Verification
+- [ ] Review
+- [ ] Release Preparation
 
 ## In Progress
 
-- No in-progress work recorded.
+- No active implementation work recorded.
 
 ## Completed
 
-- No completed work recorded.
+- No recent completed delivery slices recorded.
 
 ## Open Questions
 
-- No open questions recorded.
+- Question: What is the immediate implementation slice?
+  Owner: [person/agent/team]
+  Needed By: Before implementation starts
 
 ## Assumptions
 
-- No assumptions recorded.
+- The tracker is the project-level handoff source for developers and AI agents.
 
 ## Risks
 
-- No risks recorded.
+- Risk: Project scope may be unclear until the active slice is selected.
+  Impact: Medium
+  Mitigation: Confirm active slice before implementation.
 
 ## Architecture Decisions
 
 - No architecture decisions recorded.
+
+## Source Map
+
+- PRD: [not recorded]
+- Implementation Plan: [not recorded]
+- Stage Plan: [not recorded]
+- Design Reference: [not recorded]
+- Verification Log: [not recorded]
 
 ## Governance, Compliance, and Review Notes
 
@@ -52,4 +103,11 @@
 
 ## Verification
 
-- No verification run recorded.
+- Last Run: [not recorded]
+- Result: Not Run
+- Checked At: [not recorded]
+- Coverage:
+  - [ ] TypeScript build
+  - [ ] Unit tests
+  - [ ] CLI behavior
+  - [ ] Generated HTML review

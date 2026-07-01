@@ -12,7 +12,3 @@ export async function readTemplate(relativePath: string) {
 export async function readProgressSkeleton() {
   return readTemplate("templates/context/progress-tracker.md");
 }
-
-export async function readMilestoneSkeleton() {
-  return readTemplate("templates/context/milestone-tracker.md");
-}

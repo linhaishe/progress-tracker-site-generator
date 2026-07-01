@@ -17,17 +17,14 @@ function splitSections(markdown) {
 
 function applyPastedMarkdown() {
   const progress = document.getElementById("progressMarkdownInput").value;
-  const milestone = document.getElementById("milestoneMarkdownInput").value;
   const progressSections = splitSections(progress);
-  const milestoneSections = splitSections(milestone);
   document.querySelector("[data-live-current-goal]").textContent = progressSections["current goal"] || "No current goal found in pasted markdown.";
   document.querySelector("[data-live-next-workflow]").textContent = progressSections["recommended next workflow"] || "No recommended next workflow found in pasted markdown.";
-  document.querySelector("[data-live-milestone-status]").textContent = milestoneSections["overall status"] || "No overall status found in pasted markdown.";
+  document.querySelector("[data-live-milestone-status]").textContent = progressSections["current phase"] || "No current phase found in pasted markdown.";
 }
 
 function resetSnapshot() {
   document.getElementById("progressMarkdownInput").value = embeddedSnapshot.progressMarkdown;
-  document.getElementById("milestoneMarkdownInput").value = embeddedSnapshot.milestoneMarkdown;
   applyPastedMarkdown();
 }
 

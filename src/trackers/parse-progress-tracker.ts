@@ -5,6 +5,7 @@ export type ProgressSectionKey =
   | "currentGoal"
   | "recommendedNextWorkflow"
   | "nextUp"
+  | "milestones"
   | "inProgress"
   | "completed"
   | "openQuestions"
@@ -26,6 +27,7 @@ const knownKeys = new Set<ProgressSectionKey>([
   "currentGoal",
   "recommendedNextWorkflow",
   "nextUp",
+  "milestones",
   "inProgress",
   "completed",
   "openQuestions",

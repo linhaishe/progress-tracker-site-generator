@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { GENERATED_MARKER } from "../../src/core/ownership.js";
 import { renderProgressPage } from "../../src/render/render-page.js";
-import { parseMilestoneTracker } from "../../src/trackers/parse-milestone-tracker.js";
 import { parseProgressTracker } from "../../src/trackers/parse-progress-tracker.js";
 
 describe("renderProgressPage", () => {
@@ -10,7 +9,6 @@ describe("renderProgressPage", () => {
       generatedAt: "2026-06-28T00:00:00.000Z",
       sourcePaths: {
         progress: "context/progress-tracker.md",
-        milestone: "context/milestone-tracker.md",
       },
       progress: parseProgressTracker(`# Progress Tracker
 
@@ -29,14 +27,6 @@ describe("renderProgressPage", () => {
 ## Next Up
 
 - [ ] Add renderer
-`),
-      milestone: parseMilestoneTracker(`# Milestone Tracker
-
-## Overall Status
-
-- Current Stage: Implementation Planning
-- Delivery Readiness: Not Ready
-- Release Confidence: Medium
 
 ## Milestones
 

@@ -3,7 +3,7 @@ import type { FSWatcher } from "node:fs";
 import { resolve } from "node:path";
 import { runInit, type RunInitOptions, type RunInitResult } from "./init.js";
 
-const WATCHED_CONTEXT_FILES = new Set(["progress-tracker.md", "milestone-tracker.md", "design.md"]);
+const WATCHED_CONTEXT_FILES = new Set(["progress-tracker.md", "design.md"]);
 
 export type WatchSession = {
   close: () => void;
@@ -85,7 +85,7 @@ export async function startWatch(options: RunInitOptions, dependencies: StartWat
 
   await runOnce("Initial generation complete.");
   const watcher = watchDirectory(contextPath, (_eventType, filename) => schedule(filename));
-  logger.log(`Watching context/progress-tracker.md, context/milestone-tracker.md, context/design.md`);
+  logger.log(`Watching context/progress-tracker.md, context/design.md`);
 
   return {
     close() {

@@ -25,7 +25,6 @@ describe("createInstallPlan", () => {
 
     expect(plan.actions.map((action) => [action.kind, action.relativePath])).toEqual([
       ["create", "context/progress-tracker.md"],
-      ["create", "context/milestone-tracker.md"],
       ["create", "progress-tracker.html"],
     ]);
     expect(plan.hasConflicts).toBe(false);
@@ -41,7 +40,6 @@ describe("createInstallPlan", () => {
 
     expect(plan.actions.map((action) => [action.kind, action.relativePath])).toEqual([
       ["preserve", "context/progress-tracker.md"],
-      ["create", "context/milestone-tracker.md"],
       ["conflict", "progress-tracker.html"],
     ]);
     expect(plan.hasConflicts).toBe(true);

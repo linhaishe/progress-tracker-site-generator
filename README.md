@@ -5,7 +5,6 @@ Generate a read-only static progress dashboard from standard project tracker fil
 This package is published as `@freeasaka/progress-tracker-site-generator`. It reads or creates:
 
 - `context/progress-tracker.md`
-- `context/milestone-tracker.md`
 
 Then it generates a self-contained HTML page that can be opened directly in a browser. The page is designed as a handoff cockpit for developers and AI agents: current focus, next workflow, milestones, blockers, risks, assumptions, and verification status.
 
@@ -49,7 +48,7 @@ With pnpm, replace `npx` with `pnpm dlx`:
 pnpm dlx @freeasaka/progress-tracker-site-generator init --watch --output docs/progress-tracker.html
 ```
 
-AI initialization is opt-in. By default, `init` stays offline and uses templates/rules only. With `--ai`, the command sends matching target-project docs to OpenAI and asks for a synthesized `context/progress-tracker.md` instead of copying source documents into it:
+AI initialization is opt-in. By default, `init` stays offline and uses templates/rules only. With `--ai`, the command sends matching target-project docs to the configured AI provider and asks for a synthesized `context/progress-tracker.md` instead of copying source documents into it:
 
 ```bash
 OPENAI_API_KEY=... pnpm dlx @freeasaka/progress-tracker-site-generator init --ai
@@ -87,13 +86,13 @@ pnpm dlx @freeasaka/progress-tracker-site-generator init --ai
 `--watch` runs an initial generation, then keeps the process open and regenerates the HTML whenever these files change:
 
 - `context/progress-tracker.md`
-- `context/milestone-tracker.md`
 - `context/design.md`
 
 ## Behavior
 
 - Existing tracker markdown files are preserved.
 - Missing tracker files are created from generic templates.
+- The progress tracker template is structured for agent handoff, including `Project Health`, `Active Slice`, `Exit Criteria`, `Next Slices`, `Source Map`, and `Verification` sections with stable labels for future visualization.
 - When `context/progress-tracker.md` is missing, `init` also scans `docs/` for related markdown files whose paths mention PRD, product requirements, implementation, stage plan, roadmap, or milestones.
 - In default offline mode, matching file contents are appended to the initial progress tracker under `Project Docs Context`.
 - In `--ai` mode, matching target-project docs are used as source material for a synthesized progress tracker. Packaged `templates/docs/` files are used only as reference material for structure and expectations.
